@@ -41,3 +41,4 @@ def test_modelsL(benchmark):
 def test_modelsB(benchmark):
     benchmark(sam_modelsB)
 
+#  pytest -q sam_test.py &> log_cuda.txt 2>&1 &
