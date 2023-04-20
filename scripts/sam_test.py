@@ -2,7 +2,6 @@ from segment_anything import SamAutomaticMaskGenerator, sam_model_registry
 import pytest
 import cv2
 import os
-import sys
 current_file_path = os.path.dirname(os.path.abspath(__file__))
 model_weights = {
         "vit_h" : f"{current_file_path}/../weights/sam_vit_h_4b8939.pth",
@@ -46,5 +45,8 @@ def test_modelsL(benchmark):
 
 def test_modelsB(benchmark):
     benchmark(sam_modelsB)
+
+if __name__ == "__main__":
+    sam_modelsH()
 
 #  pytest -q sam_test.py &> log_cuda.txt 2>&1 &
