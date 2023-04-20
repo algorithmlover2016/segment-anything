@@ -1,15 +1,17 @@
 from segment_anything import SamAutomaticMaskGenerator, sam_model_registry
 import pytest
 import cv2
-
+import os
+import sys
+current_file_path = os.path.dirname(os.path.abspath(__file__))
 model_weights = {
-        "vit_h" : "../weights/sam_vit_h_4b8939.pth",
-        "vit_b" : "../weights/sam_vit_b_01ec64.pth",
-        "vit_l" : "../weights/sam_vit_l_0b3195.pth",
+        "vit_h" : f"{current_file_path}/../weights/sam_vit_h_4b8939.pth",
+        "vit_b" : f"{current_file_path}/../weights/sam_vit_b_01ec64.pth",
+        "vit_l" : f"{current_file_path}/../weights/sam_vit_l_0b3195.pth",
 }
-image3 = cv2.imread("./testImgs/3.jpg")
+image3 = cv2.imread(f"{current_file_path}/./testImgs/3.jpg")
 image3 = cv2.cvtColor(image3, cv2.COLOR_BGR2RGB)
-imagewall2 = cv2.imread("./testImgs/wall2.jpg")
+imagewall2 = cv2.imread(f"{current_file_path}/./testImgs/wall2.jpg")
 imagewall2 = cv2.cvtColor(imagewall2, cv2.COLOR_BGR2RGB)
 
 model_type = 'vit_l'
