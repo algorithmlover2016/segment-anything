@@ -8,6 +8,8 @@ from segment_anything.utils.onnx import SamOnnxModel
 import onnxruntime
 from onnxruntime.quantization import QuantType
 from onnxruntime.quantization.quantize import quantize_dynamic
+import os
+current_file_path = os.path.dirname(os.path.abspath(__file__))
 import pdb
 # pdb.set_trace()
 
@@ -29,7 +31,7 @@ def show_box(box, ax):
     ax.add_patch(plt.Rectangle((x0, y0), w, h, edgecolor='green', facecolor=(0,0,0,0), lw=2))   
 
 
-checkpoint = "../weights/sam_vit_h_4b8939.pth"
+checkpoint = f"{current_file_path}/../weights/sam_vit_h_4b8939.pth"
 model_type = "vit_h"
 
 sam = sam_model_registry[model_type](checkpoint=checkpoint)
@@ -95,7 +97,7 @@ predictor = SamPredictor(sam)
 
 def sam_onnx_modelsH():
     print("begin running")
-    image = cv2.imread('../notebooks/images/truck.jpg')
+    image = cv2.imread(f'{current_file_path}/../notebooks/images/truck.jpg')
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
     predictor.set_image(image)
@@ -128,7 +130,7 @@ def sam_onnx_modelsH():
     h, w = mask.shape[-2:]
     mask_image = mask.reshape(h, w, 1) * color.reshape(1, 1, -1) * 255
 
-    cv2.imwrite("./truck.jpg", mask_image)
+    cv2.imwrite(f"{current_file_path}/./truck.jpg", mask_image)
     return masks
 
 def test_sam_onnx_modelsH(benchmark):
